@@ -9,34 +9,34 @@
 
 using namespace std;
 
-class Tree_I
+class Temp_I
 {
 	public:
 				
-		Tree_I();
+		Temp_I();
 		virtual void Inorder();
 		virtual void Preorder();
 		virtual void Postorder();
-		virtual ~Tree_I();
+		virtual ~Temp_I();
 };
 
-Tree_I::Tree_I()
+Temp_I::Temp_I()
 {
 }
 
-Tree_I::~Tree_I()
+Temp_I::~Temp_I()
 {
 }
 
-void Tree_I::Inorder()
+void Temp_I::Inorder()
 {
 }
 
-void Tree_I::Preorder()
+void Temp_I::Preorder()
 {
 }
 
-void Tree_I::Postorder()
+void Temp_I::Postorder()
 {
 }
 
