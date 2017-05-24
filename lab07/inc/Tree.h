@@ -1,5 +1,5 @@
-#ifndef TREE_HH
-#define TREE_HH
+#ifndef Temp_HH
+#define Temp_HH
 
 #include<cstdio>
 #include<iostream>
@@ -10,71 +10,157 @@
 
 using namespace std;
 
-class Tree:public Tree_I
+struct Wezel
 {
-	private:
-	int Wartosc;
-	public:
-	Tree* Left;
-	Tree* Right;
+	int Klucz;
+	Wezel* Left;
+	Wezel* Right;
 	
-	Tree(Tree* tree, int Wartosc);
-	void Inorder(Tree* tree);
-	void Preorder(Tree* tree);
-	void Postorder(Tree* tree);
 };
 
-Tree::Tree(Tree* tree, int Wartosc)
+class Temp
 {
-	if(tree==NULL)
+	private:
+	Wezel* Korzen;
+	public:
+	Temp();
+	Wezel* GetKorzen();
+	bool Find(int klucz);
+	void Insert(int klucz);
+	void Preorder(Wezel* Temp);
+	void Inorder(Wezel* Temp);
+	void Postorder(Wezel* Temp);
+};
+
+Temp::Temp()
+{
+	Korzen = NULL;
+}
+
+Wezel* Temp::GetKorzen()
+{
+	return Korzen;
+}
+
+bool Temp::Find(int klucz)
+{
+	Wezel* Temp;
+	Temp = Korzen;
+	do
 	{
-		tree=new Tree [Wartosc];
-		tree->Wartosc=Wartosc;
-		tree->Left=NULL;
-		tree->Right=NULL;
-	}
-	else
-	{
-		if(Wartosc>=tree->Wartosc)
+		if(klucz > Temp->Klucz)
 		{
-			Insert(tree->Right, Wartosc);
+			if(Temp->Right != NULL)
+			{
+				Temp = Temp->Right;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else if (klucz < Temp->Klucz)
+		{
+			if(Temp->Left != NULL)
+			{
+				Temp = Temp->Left;
+			}
+			else
+			{
+				return false;
+			}
 		}
 		else
 		{
-			Insert(tree->Left, Wartosc);
+			return true;
 		}
 	}
+	while(true);
 }
 
-void Tree::Inorder(Tree* tree)
+void Temp::Insert(int Klucz)
 {
-	if(tree != NULL)
+	if(Korzen == NULL)
 	{
-		Inorder(tree->Left);
-		cout << tree->Wartosc;
+		Wezel* Nowy = new Wezel;
+		Nowy->Klucz = Klucz;
+		Nowy->Right = NULL;
+		Nowy->Left = NULL;
+		Korzen = Nowy;
+		return;
+	}
+	Wezel* Temp;
+	Temp = Korzen;
+	do
+	{		
+		if(Klucz<Temp->Klucz)
+		{
+			if(Temp->Left==NULL)
+			{
+				Wezel* Nowy = new Wezel;
+				Nowy->Klucz = Klucz;
+				Nowy->Right = NULL;
+				Nowy->Left = NULL;
+				Temp->Left = Nowy;
+				break;
+			}
+		}
+		else
+		{
+			if(Temp->Right==NULL)
+			{
+				Wezel* Nowy = new Wezel;
+				Nowy->Klucz = Klucz;
+				Nowy->Right = NULL;
+				Nowy->Left = NULL;
+				Temp->Right = Nowy;
+				break;
+			}
+		}
+		if(Klucz<Temp->Klucz)
+		{
+			Temp = Temp->Left;
+		}
+		else
+		{
+			Temp = Temp->Right;
+		}
+	}
+	while(true);
+}
+
+void Temp::Inorder(Wezel* A)
+{
+	Wezel* Temp = A;
+	if(Temp != NULL)
+	{
+		Inorder(Temp->Left);
+		cout << Temp->Klucz;
 		cout <<endl;
-		Inorder(tree->Right);
+		Inorder(Temp->Right);
 		}	
 }
 
-void Tree::Preorder(Tree* tree)
+void Temp::Preorder(Wezel* A)
 {
-	if(tree!=NULL)
+	Wezel* Temp = A;
+	if(Temp!=NULL)
 	{
-		cout<<tree->Wartosc;
-		cout<<end;;
-		Preorder(tree->Left);
-		Preorder(tree->Right);
+		cout<<Temp->Klucz;
+		cout<<endl;
+		Preorder(Temp->Left);
+		Preorder(Temp->Right);
 		}	
 }
 
-void Tree::Postorder(Tree *tree)
+void Temp::Postorder(Wezel* A)
 {
-	if(x!=NULL)
+	Wezel* Temp = A;
+	if(Temp != NULL)
 	{
-		Postorder(tree->Left);
-		Postorder(tree->Right);
-		cout<<tree->Wartosc;
+		Postorder(Temp->Left);
+		Postorder(Temp->Right);
+		cout<<Temp->Klucz;
 		cout<<endl;
 	}
 }
